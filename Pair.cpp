@@ -6,6 +6,7 @@ class Pair
     T first;
     V second;
 public:
+    Pair() {};
     Pair(T _first, V _second) : first(_first), second(_second) {};
     T& f() {return first;}
     V& s() {return second;}

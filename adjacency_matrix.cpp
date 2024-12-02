@@ -8,8 +8,9 @@ class AdjMatrix
     int** matrix;
 public:
     AdjMatrix(int);
-    friend std::ostream& operator<< (std::ostream&, AdjMatrix);
+    friend std::ostream& operator<< (std::ostream&, AdjMatrix&);
     void write(std::ifstream&);
+    ~AdjMatrix();
 };
 
 AdjMatrix::AdjMatrix(int _size)
@@ -21,7 +22,7 @@ AdjMatrix::AdjMatrix(int _size)
 }
 
 
-std::ostream& operator<< (std::ostream& os, AdjMatrix am)
+std::ostream& operator<< (std::ostream& os, AdjMatrix& am)
 {
     for (int i = 0; i < am.size; i++)
     {
@@ -47,4 +48,11 @@ void AdjMatrix::write(std::ifstream& ifs)
             str.erase(j, 1);
         }
     }
+}
+
+AdjMatrix::~AdjMatrix()
+{
+    for (int i = 0; i < size; i++)
+        delete[] matrix[i];
+    delete[] matrix;
 }
