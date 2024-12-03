@@ -18,7 +18,11 @@ AdjMatrix::AdjMatrix(int _size)
     size = _size;
     matrix = new int*[size];
     for (int i = 0; i < size; i++)
+    {
         matrix[i] = new int[size];
+        for (int j = 0; j < size; j++)
+            matrix[i][j] = 0;
+    }
 }
 
 
@@ -42,10 +46,16 @@ void AdjMatrix::write(std::ifstream& ifs)
     for (int i = 0; i < size; i++)
     {
         getline(ifs, str);
-        for (int j = 0; j < size; j++)
+        int curr_col = 0;
+        for (int j = 0; j < str.size(); j++)
         {
-            matrix[i][j] = str[j]-'0';
-            str.erase(j, 1);
+            if (str[j] == ' ')
+            {
+                curr_col++;
+                continue;
+            }
+            matrix[i][curr_col] *= 10;
+            matrix[i][curr_col] += str[j]-'0';
         }
     }
 }
