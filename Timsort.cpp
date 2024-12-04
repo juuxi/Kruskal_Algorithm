@@ -23,9 +23,9 @@ void insert_sort(Vector<Pair<int, std::string>> &arr, size_t left, size_t right)
         int value = arr[i].f();
         for (int j = i-1; j >= left && value < arr[j].f(); j--)
         {
-            int temp = arr[j].f();
+            Pair<int, std::string> temp = arr[j];
             arr[j] = arr[j+1];
-            arr[j+1].f() = temp;
+            arr[j+1] = temp;
         }
     } 
 } 
