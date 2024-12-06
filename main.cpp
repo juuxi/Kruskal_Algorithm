@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
-#include "Timsort.cpp"
 #include "adjacency_matrix.cpp"
+#include "disjoint_sets.cpp"
 
 void get_edge_name(int i, int j, std::string& str, AdjMatrix& mtr)
 {
@@ -20,6 +20,25 @@ void get_edge_name(int i, int j, std::string& str, AdjMatrix& mtr)
         str.push_back('A');
         str.push_back(mtr.names[j-26]);
     }   
+}
+
+void get_vertices_names(Vector<std::string>& vertices, AdjMatrix& mtr)
+{
+     for (int i = 0; i < mtr.get_size(); i++)
+    {
+        if (i < 26)
+        {
+            std::string s = "";
+            s += mtr.names[i];
+            vertices.push_back(s);
+        }
+        else
+        {
+            std::string s = "A";
+            s += mtr.names[i-26];
+            vertices.push_back(s);
+        }
+    } 
 }
 
 int main()
@@ -48,5 +67,8 @@ int main()
     }
     timsort(vec, minrun);
     std::cout << vec << std::endl;
+    Vector<std::string> vertices(1);
+    get_vertices_names(vertices, mtr);
+    DisjSet ds(vertices);
     return 0;
 }
