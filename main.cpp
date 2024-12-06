@@ -70,5 +70,9 @@ int main()
     Vector<std::string> vertices(1);
     get_vertices_names(vertices, mtr);
     DisjSet ds(vertices);
+    std::cout << ds << std::endl;
+    ds.unionize(0, 1);
+    ds.unionize(1, 2);
+    std::cout << ds << std::endl;
     return 0;
 }

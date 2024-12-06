@@ -15,6 +15,7 @@ public:
     void remove(size_t);
     size_t get_size() {return size;}
     V& operator[] (size_t index);
+    int find(V);
     template <typename V2>
     friend std::ostream& operator<<(std::ostream&, Vector<V>&);
 private:
@@ -63,6 +64,17 @@ template<typename V>
 V& Vector<V>::operator[](size_t index)
 {
     return arr[index];
+}
+
+template<typename V>
+int Vector<V>::find(V _val)
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (arr[i] == _val)
+            return i;
+    }
+    return -1;
 }
 
 template<typename V>
