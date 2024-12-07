@@ -43,7 +43,6 @@ void get_vertices_names(Vector<std::string>& vertices, AdjMatrix& mtr)
 
 int main()
 {
-    std::cout << "Alright!" << std::endl;
     std::ifstream f("adjacency_matrix.txt");
     int num_of_lines = std::count(std::istreambuf_iterator<char>(f), 
             std::istreambuf_iterator<char>(), '\n');
@@ -66,14 +65,27 @@ int main()
         }
     }
     timsort(vec, minrun);
-    std::cout << vec << std::endl;
     Vector<std::string> vertices(1);
     get_vertices_names(vertices, mtr);
     DisjSet ds(vertices);
-    std::cout << ds << std::endl;
-    ds.unionize(0, 1);
-    ds.unionize(1, 2);
-    std::cout << ds << std::endl;
-    std::cout << ds.find("C") << std::endl;
+    Vector<std::string> edges(1);
+    int sum_weight = 0;
+    for (int i = 0; i < vec.get_size(); i++)
+    {
+        std::string vert_1 = vec[i].s();
+        vert_1 = vert_1.substr(0, vert_1.find(' '));
+        std::string vert_2 = vec[i].s();
+        vert_2 = vert_2.substr(vert_2.find(' ') + 1, vert_2.size());
+
+        if (ds.find(vert_1) != ds.find(vert_2))
+        {
+            edges.push_back(vert_1 + ' ' + vert_2);
+            ds.unionize(ds.find_index(vert_1), ds.find_index(vert_2));
+            sum_weight += vec[i].f();
+            //std::cout << ds << std::endl;
+        }
+    }
+    std::cout << edges << std::endl;
+    std::cout << sum_weight << std::endl;
     return 0;
 }
