@@ -10,6 +10,7 @@ public:
     DisjSet() : parents(1), vertices(1) {};
     DisjSet(Vector<std::string> _vertices);
     void unionize(int first_index, int second_index);
+    std::string find(std::string);
     friend std::ostream& operator<< (std::ostream&, DisjSet&);
 };
 
@@ -31,6 +32,12 @@ void DisjSet::unionize(int first_index, int second_index)
             finder = vertices.find(parents[finder]);
         parents[second_index] = parents[finder];
     }
+}
+
+std::string DisjSet::find(std::string _str)
+{
+    int index = vertices.find(_str);
+    return parents[index];
 }
 
 std::ostream& operator<< (std::ostream& os, DisjSet& ds)

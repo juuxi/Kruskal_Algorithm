@@ -74,5 +74,6 @@ int main()
     ds.unionize(0, 1);
     ds.unionize(1, 2);
     std::cout << ds << std::endl;
+    std::cout << ds.find("C") << std::endl;
     return 0;
 }
