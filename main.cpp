@@ -41,6 +41,20 @@ void get_vertices_names(Vector<std::string>& vertices, AdjMatrix& mtr)
     } 
 }
 
+void edges_insert_sort(Vector<std::string> &arr, size_t left, size_t right)
+{
+    for(size_t i = left + 1; i < right; i++)
+    {
+        std::string value = arr[i];
+        for (int j = i-1; j >= left && value < arr[j]; j--)
+        {
+            std::string temp = arr[j];
+            arr[j] = arr[j+1];
+            arr[j+1] = temp;
+        }
+    } 
+} 
+
 int main()
 {
     std::ifstream f("adjacency_matrix.txt");
@@ -85,6 +99,7 @@ int main()
             //std::cout << ds << std::endl;
         }
     }
+    edges_insert_sort(edges, 0, edges.get_size());
     std::cout << edges << std::endl;
     std::cout << sum_weight << std::endl;
     return 0;

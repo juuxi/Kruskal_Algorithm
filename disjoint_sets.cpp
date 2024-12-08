@@ -28,16 +28,21 @@ void DisjSet::unionize(int first_index, int second_index)
 {
     if (parents[first_index] != parents[second_index])
     {
-        int finder = second_index;
-        while(vertices[finder] != parents[finder])
-            finder = vertices.find(parents[finder]);
-        parents[first_index] = parents[finder];
+        int first_finder = first_index;
+        int second_finder = second_index;
+        while(vertices[second_finder] != parents[second_finder])
+            second_finder = vertices.find(parents[second_finder]);
+        while(vertices[first_finder] != parents[first_finder])
+            first_finder = vertices.find(parents[first_finder]);
+        parents[first_finder] = parents[second_finder];
     }
 }
 
 std::string DisjSet::find(std::string _str)
 {
     int index = vertices.find(_str);
+    while(vertices[index] != parents[index])
+        index = vertices.find(parents[index]);
     return parents[index];
 }
 
