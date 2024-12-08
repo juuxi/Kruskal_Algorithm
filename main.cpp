@@ -55,6 +55,14 @@ void edges_insert_sort(Vector<std::string> &arr, size_t left, size_t right)
     } 
 } 
 
+void menu()
+{
+    std::cout << "1. - Обход в глубину" << std::endl;
+    std::cout << "2. - Обход в ширину" << std::endl;
+    std::cout << "3. - Алгоритм Крускала" << std::endl;
+    std::cout << "4. - Выход" << std::endl << "> ";
+}
+
 int main()
 {
     std::ifstream f("adjacency_matrix.txt");
@@ -63,8 +71,8 @@ int main()
     f.seekg(0);
     AdjMatrix mtr(num_of_lines);
     mtr.write(f);
-    std::cout << mtr;
-    std::cout << std::endl;
+    //std::cout << mtr;
+    //std::cout << std::endl;
     int minrun = count_minrun(num_of_lines);
     Vector<Pair<int, std::string>> vec(1);
     for (int i = 0; i < mtr.get_size(); i++)
@@ -100,7 +108,29 @@ int main()
         }
     }
     edges_insert_sort(edges, 0, edges.get_size());
-    std::cout << edges << std::endl;
-    std::cout << sum_weight << std::endl;
+    char c = '\0';
+    while (c != '4')
+    {
+        system("clear");
+        menu();
+        std::cin >> c;
+        switch(c)
+        {
+            case '1':
+                break;
+            case '2':
+                break;
+            case '3':
+                std::cout << edges << std::endl;
+                std::cout << sum_weight << std::endl;
+                std::cin.ignore();
+                std::cout << std::endl << "Нажмите Enter для продолжения ";
+                std::cin.ignore();
+                break;
+            case '4':
+                break;
+            default: break;
+        }
+    }
     return 0;
 }
