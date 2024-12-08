@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <queue>
 #include "adjacency_matrix.cpp"
 #include "disjoint_sets.cpp"
 
@@ -119,7 +120,42 @@ int main()
             case '1':
                 break;
             case '2':
+            {
+                std::queue<std::string> q;
+                Vector<std::string> visited(1);
+                q.push("A");
+                visited.push_back("A");
+                while (!q.empty())
+                {
+                    std::string curr = q.front();
+                    q.pop();
+                    std::cout << curr;
+                    for (int i = 0; i < mtr.get_size(); i++)
+                    {
+                        int j = ds.find_index(curr);
+                        if(mtr.are_edged(i, j))
+                        {
+                            std::string to_push = "";
+                            if (i < 26)
+                                to_push += mtr.names[i];
+                            else 
+                            {
+                                to_push += 'A';
+                                to_push += mtr.names[i % 26];
+                            }
+                            if (visited.find(to_push) == -1)
+                            {
+                                q.push(to_push);
+                                visited.push_back(to_push);
+                            }
+                        }
+                    }
+                }
+                std::cin.ignore();
+                std::cout << std::endl << "Нажмите Enter для продолжения ";
+                std::cin.ignore();
                 break;
+            }
             case '3':
                 std::cout << edges << std::endl;
                 std::cout << sum_weight << std::endl;

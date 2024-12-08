@@ -13,6 +13,7 @@ public:
     AdjMatrix(int);
     friend std::ostream& operator<< (std::ostream&, AdjMatrix&);
     int*& operator[](int);
+    bool are_edged(int i, int j);
     int get_size();
     void write(std::ifstream&);
     ~AdjMatrix();
@@ -69,6 +70,13 @@ void AdjMatrix::write(std::ifstream& ifs)
 int*& AdjMatrix::operator[](int index)
 {
     return matrix[index];
+}
+
+bool AdjMatrix::are_edged(int i, int j)
+{
+    if (matrix[i][j] == 0)
+        return false;
+    return true;
 }
 
 int AdjMatrix::get_size()
