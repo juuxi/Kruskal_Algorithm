@@ -118,6 +118,10 @@ int main()
         switch(c)
         {
             case '1':
+                mtr.dfs(0);
+                std::cin.ignore();
+                std::cout << std::endl << "Нажмите Enter для продолжения ";
+                std::cin.ignore();
                 break;
             case '2':
             {
@@ -129,7 +133,7 @@ int main()
                 {
                     std::string curr = q.front();
                     q.pop();
-                    std::cout << curr;
+                    std::cout << curr << " ";
                     for (int i = 0; i < mtr.get_size(); i++)
                     {
                         int j = ds.find_index(curr);

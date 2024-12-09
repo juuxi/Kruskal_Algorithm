@@ -2,11 +2,13 @@
 #include <fstream>
 #include <numeric>
 #include <string>
+#include <vector>
 
 class AdjMatrix
 {
     int size;
     int** matrix;
+    std::vector<int> visited;
 public:
     char names[26];
 
@@ -15,6 +17,7 @@ public:
     int*& operator[](int);
     bool are_edged(int i, int j);
     int get_size();
+    void dfs(int);
     void write(std::ifstream&);
     ~AdjMatrix();
 };
@@ -82,6 +85,26 @@ bool AdjMatrix::are_edged(int i, int j)
 int AdjMatrix::get_size()
 {
     return size;
+}
+
+void AdjMatrix::dfs(int index)
+{
+    visited.push_back(index);
+    for (int i = 0; i < size; i++)
+    {
+        bool is_visited = std::find(visited.begin(), visited.end(), i) != visited.end();
+        if (matrix[i][index] && !is_visited)
+            dfs(i);
+    }
+    std::string s;
+    if (index < 26)
+        s += 'A' + index;
+    else
+    {
+        s += 'A';
+        s += 'A' + (index % 26);
+    }
+    std::cout << s << " ";
 }
 
 AdjMatrix::~AdjMatrix()
